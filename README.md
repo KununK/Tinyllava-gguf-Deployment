@@ -2,8 +2,6 @@
 
 将 [`Zhang199/TinyLLaVA-Qwen2-0.5B-SigLIP`](https://huggingface.co/Zhang199/TinyLLaVA-Qwen2-0.5B-SigLIP) 转换为 GGUF、量化文本模型，并通过带 TinyLLaVA 支持的 `llama.cpp` 在 CPU 或 CUDA 上运行。
 
-本仓库用于部署复现和工作交接，只保存脚本、文档及固定的上游源码版本。模型权重、GGUF、编译产物和运行日志不会提交到 Git。
-
 ## 固定版本
 
 | 组件 | 上游仓库 | 分支/提交 |
