@@ -50,8 +50,6 @@ sudo apt update
 sudo apt install -y cmake build-essential libcurl4-openssl-dev python3-venv
 ```
 
-原部署笔记中的 `cmak` 和 `libcurl4-openssl-de` 是截断的包名，这里已分别修正为 `cmake` 和 `libcurl4-openssl-dev`。
-
 建议创建独立 Python 环境：
 
 ```bash
@@ -68,7 +66,22 @@ python -m pip install -r third_party/llama.cpp/tools/mtmd/requirements.txt
 python -m pip install -e third_party/TinyLLaVA_Factory
 ```
 
-原部署环境曾将 `TinyLLaVA_Factory/pyproject.toml` 中部分严格依赖版本放宽，以适配已有 CUDA/Python 环境。该临时修改没有纳入本仓库。若安装发生 PyTorch、CUDA 或 Python 版本冲突，应优先建立单独虚拟环境并记录最终验证版本，不建议直接无约束升级全部依赖。
+当时部署时，曾将 `TinyLLaVA_Factory/pyproject.toml` 中部分严格依赖版本放宽，以适配已有 CUDA/Python 环境。该临时修改没有纳入本仓库。若安装发生 PyTorch、CUDA 或 Python 版本冲突，应优先建立单独虚拟环境并记录最终验证版本，不建议直接无约束升级全部依赖。但仍然给出当时环境参考：
+
+```bash
+# 最终环境
+# CUDA=12.6 torch=2.8 python=3.11
+conda create --prefix /data/vlm/jlk/jlk_llama python=3.11 -y
+pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu126
+git clone https://github.com/TinyLLaVA/TinyLLaVA_Factory.git
+cd TinyLLaVA_Factory
+# 手动删除 pyproject.toml 中 dependencies 指定的版本约束
+pip install -e .
+pip install flash-attn --no-build-isolation
+# 出错可选手动安装
+# wget -c https://ghproxy.com/https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp311-cp311-linux_x86_64.whl
+# pip install flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp311-cp311-linux_x86_64.whl
+```
 
 ## 3. 下载模型
 
