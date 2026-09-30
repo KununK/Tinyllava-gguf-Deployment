@@ -1,0 +1,8 @@
+[submodule "third_party/llama.cpp"]
+	path = third_party/llama.cpp
+	url = https://github.com/dnvtmf/llama.cpp.git
+	branch = TinyLLaVA
+[submodule "third_party/TinyLLaVA_Factory"]
+	path = third_party/TinyLLaVA_Factory
+	url = https://github.com/TinyLLaVA/TinyLLaVA_Factory.git
+	branch = main
